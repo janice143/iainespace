@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-container align-center>
+      <Header :goDark="goDark" @changeTheme="updateTheme($event)"/>
+      <router-view></router-view>
+      
+    </v-container>
+    <Footer />
+  </v-app>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Footer from './components/Footer';
+import Header from './components/Header';
 
 export default {
   name: 'App',
+
   components: {
-    HelloWorld
+    Footer,
+    Header
+  },
+
+  data: () => ({
+    goDark: false,
+
+  }),
+  methods:{
+    updateTheme(updatedTheme) {
+      this.goDark = !updatedTheme;
+      this.$vuetify.theme.dark = this.goDark
+    }
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+
